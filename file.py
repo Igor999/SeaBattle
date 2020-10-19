@@ -1,7 +1,11 @@
+import random
+
+
 player = []
 computer = []
 player_ban = []
 computer_ban = []
+
 
 def ErrorPosition(ship, pl_ban):
     if ship in pl_ban:
@@ -13,44 +17,80 @@ def ErrorPosition(ship, pl_ban):
     else:
         return False
 
-def BorderAndCorner(ban):
+def BorderAndCorner(ban, PorC):
     global player_ban
-    for keep in ban:
-        if 0 <= keep[0] - 1 and 0 <= keep[1] - 1:
-            if (keep[0] - 1, keep[1] - 1) not in player_ban:
-                player_ban.append((keep[0] - 1, keep[1] - 1))
-        if 0 <= keep[0] - 1:
-            if (0 <= keep[0] - 1, keep[1]) not in player_ban:
-                player_ban.append((keep[0] - 1, keep[1]))
-        if 0 <= keep[0] - 1 and keep[1] + 1 < 6:
-            if (keep[0] - 1, keep[1] + 1) not in player_ban:
-                player_ban.append((keep[0] - 1, keep[1] + 1))
-        if 0 <= keep[1] - 1:
-            if (keep[0], keep[1] - 1) not in player_ban:
-                player_ban.append((keep[0], keep[1] - 1))
-        if keep[1] + 1 < 6:
-            if (keep[0], keep[1] + 1) not in player_ban:
-                player_ban.append((keep[0], keep[1] + 1))
-        if keep[0] + 1 < 6 and 0 <= keep[1] - 1:
-            if (keep[0] + 1, keep[1] - 1) not in player_ban:
-                player_ban.append((keep[0] + 1, keep[1] - 1))
-        if keep[0] + 1 < 6:
-            if (keep[0] + 1, keep[1]) not in player_ban:
-                player_ban.append((keep[0] + 1, keep[1]))
-        if keep[0] + 1 < 6 and keep[1] + 1 < 6:
-            if (keep[0] + 1, keep[1] + 1) not in player_ban:
-                player_ban.append((keep[0] + 1, keep[1] + 1))
-    return player_ban
+    global computer_ban
+    if PorC == 0:
+        for keep in ban:
+            if 0 <= keep[0] - 1 and 0 <= keep[1] - 1:
+                if (keep[0] - 1, keep[1] - 1) not in player_ban:
+                    player_ban.append((keep[0] - 1, keep[1] - 1))
+            if 0 <= keep[0] - 1:
+                if (0 <= keep[0] - 1, keep[1]) not in player_ban:
+                    player_ban.append((keep[0] - 1, keep[1]))
+            if 0 <= keep[0] - 1 and keep[1] + 1 < 6:
+                if (keep[0] - 1, keep[1] + 1) not in player_ban:
+                    player_ban.append((keep[0] - 1, keep[1] + 1))
+            if 0 <= keep[1] - 1:
+                if (keep[0], keep[1] - 1) not in player_ban:
+                    player_ban.append((keep[0], keep[1] - 1))
+            if keep[1] + 1 < 6:
+                if (keep[0], keep[1] + 1) not in player_ban:
+                    player_ban.append((keep[0], keep[1] + 1))
+            if keep[0] + 1 < 6 and 0 <= keep[1] - 1:
+                if (keep[0] + 1, keep[1] - 1) not in player_ban:
+                    player_ban.append((keep[0] + 1, keep[1] - 1))
+            if keep[0] + 1 < 6:
+                if (keep[0] + 1, keep[1]) not in player_ban:
+                    player_ban.append((keep[0] + 1, keep[1]))
+            if keep[0] + 1 < 6 and keep[1] + 1 < 6:
+                if (keep[0] + 1, keep[1] + 1) not in player_ban:
+                    player_ban.append((keep[0] + 1, keep[1] + 1))
+        return player_ban
+    if PorC == 1:
+        for keep in ban:
+            if 0 <= keep[0] - 1 and 0 <= keep[1] - 1:
+                if (keep[0] - 1, keep[1] - 1) not in computer_ban:
+                    computer_ban.append((keep[0] - 1, keep[1] - 1))
+            if 0 <= keep[0] - 1:
+                if (0 <= keep[0] - 1, keep[1]) not in computer_ban:
+                    computer_ban.append((keep[0] - 1, keep[1]))
+            if 0 <= keep[0] - 1 and keep[1] + 1 < 6:
+                if (keep[0] - 1, keep[1] + 1) not in computer_ban:
+                    computer_ban.append((keep[0] - 1, keep[1] + 1))
+            if 0 <= keep[1] - 1:
+                if (keep[0], keep[1] - 1) not in computer_ban:
+                    computer_ban.append((keep[0], keep[1] - 1))
+            if keep[1] + 1 < 6:
+                if (keep[0], keep[1] + 1) not in computer_ban:
+                    computer_ban.append((keep[0], keep[1] + 1))
+            if keep[0] + 1 < 6 and 0 <= keep[1] - 1:
+                if (keep[0] + 1, keep[1] - 1) not in computer_ban:
+                    computer_ban.append((keep[0] + 1, keep[1] - 1))
+            if keep[0] + 1 < 6:
+                if (keep[0] + 1, keep[1]) not in computer_ban:
+                    computer_ban.append((keep[0] + 1, keep[1]))
+            if keep[0] + 1 < 6 and keep[1] + 1 < 6:
+                if (keep[0] + 1, keep[1] + 1) not in computer_ban:
+                    computer_ban.append((keep[0] + 1, keep[1] + 1))
+        return computer_ban
 
 class Ship:
     def __init__(self, player, computer):
         self.player = player
         self.computer = computer
     def ShowTablePlayer(self):
-        print("Поле игрока")
         for i in range(6):
             for j in range(6):
                 if (i, j) in self.player:
+                    print("| ■ ", end='')
+                else:
+                    print("| O ", end='')
+            print("|")
+    def ShowTableComputer(self):
+        for i in range(6):
+            for j in range(6):
+                if (i, j) in self.computer:
                     print("| ■ ", end='')
                 else:
                     print("| O ", end='')
@@ -74,27 +114,234 @@ class ShipTypes:
                 print("Корабль разделить невозможно")
                 return True
         elif len(self.coordinates) == 2:
-            if (self.coordinates[0][0] + 1, self.coordinates[0][1]) == self.new_coordinates:
-                return False
-            elif (self.coordinates[0][0]-1, self.coordinates[0][1]) == self.new_coordinates:
-                return False
-            elif (self.coordinates[0][0], self.coordinates[0][1]-1) == self.new_coordinates:
-                return False
-            elif (self.coordinates[0][0], self.coordinates[0][1]+1) == self.new_coordinates:
-                return False
-            elif (self.coordinates[1][0] + 1, self.coordinates[1][1]) == self.new_coordinates:
-                return False
-            elif (self.coordinates[1][0]-1, self.coordinates[1][1]) == self.new_coordinates:
-                return False
-            elif (self.coordinates[1][0], self.coordinates[1][1]-1) == self.new_coordinates:
-                return False
-            elif (self.coordinates[1][0], self.coordinates[1][1]+1) == self.new_coordinates:
-                return False
+            if (self.coordinates[0][0], self.coordinates[0][1]) != self.new_coordinates and (self.coordinates[1][0], self.coordinates[1][1]) != self.new_coordinates:
+                if (self.coordinates[0][0] + 1, self.coordinates[0][1]) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[0][0] - 1, self.coordinates[0][1]) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[0][0], self.coordinates[0][1]-1) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[0][0], self.coordinates[0][1]+1) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[1][0] + 1, self.coordinates[1][1]) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[1][0] - 1, self.coordinates[1][1]) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[1][0], self.coordinates[1][1]-1) == self.new_coordinates:
+                    return False
+                elif (self.coordinates[1][0], self.coordinates[1][1]+1) == self.new_coordinates:
+                    return False
+                else:
+                    print("Корабль разделить невозможно")
+                    return True
             else:
-                print("Корабль разделить невозможно")
                 return True
 
 
+
+# РАССТАНОВКА КОРАБЛЕЙ КОМПЬЮТЕРА
+
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+
+ban = []
+TrueFalse = True
+while TrueFalse == True:
+    third = (random.randint(0, 5), random.randint(0, 5))
+    print(third)
+    TrueFalse = ErrorPosition(third, computer_ban)
+computer.append(third)
+computer_ban.append(third)
+ban.append(third)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+coordinates_of_deck = [third]
+
+# third вместо second_third чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    third = (random.randint(0, 5), random.randint(0, 5))
+    print(third)
+    TrueFalse = ErrorPosition(third, computer_ban)
+    DeckRes = ShipTypes(coordinates_of_deck, third)
+    TrueFalse = DeckRes.Deck()
+computer.append(third)
+computer_ban.append(third)
+ban.append(third)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+coordinates_of_deck.append(third)
+
+# third вместо second_third чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    third = (random.randint(0, 5), random.randint(0, 5))
+    print(third)
+    TrueFalse = ErrorPosition(third, computer_ban)
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, third)
+        TrueFalse = DeckRes.Deck()
+computer.append(third)
+computer_ban.append(third)
+ban.append(third)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+
+ban = []
+TrueFalse = True
+while TrueFalse == True:
+    two = (random.randint(0, 5), random.randint(0, 5))
+    print(two)
+    TrueFalse = ErrorPosition(two, computer_ban)
+computer.append(two)
+computer_ban.append(two)
+ban.append(two)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+coordinates_of_deck = [two]
+
+
+
+# two вместо second_two чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    two = (random.randint(0, 5), random.randint(0, 5))
+    print(two)
+    TrueFalse = ErrorPosition(two, computer_ban)
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, two)
+        TrueFalse = DeckRes.Deck()
+computer.append(two)
+computer_ban.append(two)
+ban.append(two)
+print("Поле игрока")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+
+ban = []
+# two вместо second_two чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    two = (random.randint(0, 5), random.randint(0, 5))
+    print(two)
+    TrueFalse = ErrorPosition(two, computer_ban)
+computer.append(two)
+computer_ban.append(two)
+ban.append(two)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+coordinates_of_deck = [two]
+
+# two вместо second_two чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    two = (random.randint(0, 5), random.randint(0, 5))
+    print(two)
+    TrueFalse = ErrorPosition(two, computer_ban)
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, two)
+        TrueFalse = DeckRes.Deck()
+computer.append(two)
+computer_ban.append(two)
+ban.append(two)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+ban = []
+TrueFalse = True
+while TrueFalse == True:
+    one = (random.randint(0, 5), random.randint(0, 5))
+    print(one)
+    TrueFalse = ErrorPosition(one, computer_ban)
+computer.append(one)
+computer_ban.append(one)
+ban.append(one)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+ban = []
+# one вместо second_one чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    one = (random.randint(0, 5), random.randint(0, 5))
+    print(one)
+    TrueFalse = ErrorPosition(one, computer_ban)
+computer.append(one)
+computer_ban.append(one)
+ban.append(one)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+ban = []
+# one вместо second_one чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    one = (random.randint(0, 5), random.randint(0, 5))
+    print(one)
+    TrueFalse = ErrorPosition(one, computer_ban)
+computer.append(one)
+computer_ban.append(one)
+ban.append(one)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+ban = []
+# one вместо second_one чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    one = (random.randint(0, 5), random.randint(0, 5))
+    print(one)
+    TrueFalse = ErrorPosition(one, computer_ban)
+computer.append(one)
+computer_ban.append(one)
+ban.append(one)
+print("Поле компьютера")
+SP = Ship(player, computer)
+SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+print("Нельзя ставить: ", computer_ban)
+
+
+
+
+
+
+
+# УСТАНОВКА КОРАБЛЕЙ ИГРОКА
+
+
+
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 
@@ -108,6 +355,7 @@ while TrueFalse == True:
 player.append(third)
 player_ban.append(third)
 ban.append(third)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 coordinates_of_deck = [third]
@@ -124,6 +372,7 @@ while TrueFalse == True:
 player.append(third)
 player_ban.append(third)
 ban.append(third)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 coordinates_of_deck.append(third)
@@ -139,9 +388,10 @@ while TrueFalse == True:
 player.append(third)
 player_ban.append(third)
 ban.append(third)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 
@@ -154,6 +404,7 @@ while TrueFalse == True:
 player.append(two)
 player_ban.append(two)
 ban.append(two)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 coordinates_of_deck = [two]
@@ -171,9 +422,10 @@ while TrueFalse == True:
 player.append(two)
 player_ban.append(two)
 ban.append(two)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 
@@ -187,6 +439,7 @@ while TrueFalse == True:
 player.append(two)
 player_ban.append(two)
 ban.append(two)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 coordinates_of_deck = [two]
@@ -202,9 +455,10 @@ while TrueFalse == True:
 player.append(two)
 player_ban.append(two)
 ban.append(two)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 ban = []
@@ -216,9 +470,10 @@ while TrueFalse == True:
 player.append(one)
 player_ban.append(one)
 ban.append(one)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 ban = []
@@ -231,9 +486,10 @@ while TrueFalse == True:
 player.append(one)
 player_ban.append(one)
 ban.append(one)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 ban = []
@@ -246,9 +502,10 @@ while TrueFalse == True:
 player.append(one)
 player_ban.append(one)
 ban.append(one)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 ban = []
@@ -261,9 +518,10 @@ while TrueFalse == True:
 player.append(one)
 player_ban.append(one)
 ban.append(one)
+print("Поле игрока")
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
-BorderAndCorner(ban)
+BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 print(player)
