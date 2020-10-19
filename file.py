@@ -22,57 +22,38 @@ def BorderAndCorner(ban, PorC):
     global computer_ban
     if PorC == 0:
         for keep in ban:
-            if 0 <= keep[0] - 1 and 0 <= keep[1] - 1:
-                if (keep[0] - 1, keep[1] - 1) not in player_ban:
-                    player_ban.append((keep[0] - 1, keep[1] - 1))
-            if 0 <= keep[0] - 1:
-                if (0 <= keep[0] - 1, keep[1]) not in player_ban:
-                    player_ban.append((keep[0] - 1, keep[1]))
-            if 0 <= keep[0] - 1 and keep[1] + 1 < 6:
-                if (keep[0] - 1, keep[1] + 1) not in player_ban:
-                    player_ban.append((keep[0] - 1, keep[1] + 1))
-            if 0 <= keep[1] - 1:
-                if (keep[0], keep[1] - 1) not in player_ban:
-                    player_ban.append((keep[0], keep[1] - 1))
-            if keep[1] + 1 < 6:
-                if (keep[0], keep[1] + 1) not in player_ban:
-                    player_ban.append((keep[0], keep[1] + 1))
-            if keep[0] + 1 < 6 and 0 <= keep[1] - 1:
-                if (keep[0] + 1, keep[1] - 1) not in player_ban:
-                    player_ban.append((keep[0] + 1, keep[1] - 1))
-            if keep[0] + 1 < 6:
-                if (keep[0] + 1, keep[1]) not in player_ban:
-                    player_ban.append((keep[0] + 1, keep[1]))
-            if keep[0] + 1 < 6 and keep[1] + 1 < 6:
-                if (keep[0] + 1, keep[1] + 1) not in player_ban:
-                    player_ban.append((keep[0] + 1, keep[1] + 1))
+            print("Кип ", keep)
+            player_ban.append((keep[0] - 1, keep[1] - 1))
+            player_ban.append((keep[0] - 1, keep[1]))
+            player_ban.append((keep[0] - 1, keep[1] + 1))
+            player_ban.append((keep[0], keep[1] - 1))
+            player_ban.append((keep[0], keep[1] + 1))
+            player_ban.append((keep[0] + 1, keep[1] - 1))
+            player_ban.append((keep[0] + 1, keep[1]))
+            player_ban.append((keep[0] + 1, keep[1] + 1))
+        counters = []
+        for point in player_ban:
+            if point[0] < 0 or point[1] < 0 or point[0] > 5 or point[1] > 5:
+                counters.append(point)
+        for BadNumbers in counters:
+            player_ban.remove(BadNumbers)
         return player_ban
     if PorC == 1:
         for keep in ban:
-            if 0 <= keep[0] - 1 and 0 <= keep[1] - 1:
-                if (keep[0] - 1, keep[1] - 1) not in computer_ban:
-                    computer_ban.append((keep[0] - 1, keep[1] - 1))
-            if 0 <= keep[0] - 1:
-                if (0 <= keep[0] - 1, keep[1]) not in computer_ban:
-                    computer_ban.append((keep[0] - 1, keep[1]))
-            if 0 <= keep[0] - 1 and keep[1] + 1 < 6:
-                if (keep[0] - 1, keep[1] + 1) not in computer_ban:
-                    computer_ban.append((keep[0] - 1, keep[1] + 1))
-            if 0 <= keep[1] - 1:
-                if (keep[0], keep[1] - 1) not in computer_ban:
-                    computer_ban.append((keep[0], keep[1] - 1))
-            if keep[1] + 1 < 6:
-                if (keep[0], keep[1] + 1) not in computer_ban:
-                    computer_ban.append((keep[0], keep[1] + 1))
-            if keep[0] + 1 < 6 and 0 <= keep[1] - 1:
-                if (keep[0] + 1, keep[1] - 1) not in computer_ban:
-                    computer_ban.append((keep[0] + 1, keep[1] - 1))
-            if keep[0] + 1 < 6:
-                if (keep[0] + 1, keep[1]) not in computer_ban:
-                    computer_ban.append((keep[0] + 1, keep[1]))
-            if keep[0] + 1 < 6 and keep[1] + 1 < 6:
-                if (keep[0] + 1, keep[1] + 1) not in computer_ban:
-                    computer_ban.append((keep[0] + 1, keep[1] + 1))
+            computer_ban.append((keep[0] - 1, keep[1] - 1))
+            computer_ban.append((keep[0] - 1, keep[1]))
+            computer_ban.append((keep[0] - 1, keep[1] + 1))
+            computer_ban.append((keep[0], keep[1] - 1))
+            computer_ban.append((keep[0], keep[1] + 1))
+            computer_ban.append((keep[0] + 1, keep[1] - 1))
+            computer_ban.append((keep[0] + 1, keep[1]))
+            computer_ban.append((keep[0] + 1, keep[1] + 1))
+        counters = []
+        for point in player_ban:
+            if point[0] < 0 or point[1] < 0 or point[0] > 5 or point[1] > 5:
+                counters.append(point)
+        for BadNumbers in counters:
+            player_ban.remove(BadNumbers)
         return computer_ban
 
 class Ship:
@@ -165,8 +146,11 @@ while TrueFalse == True:
     third = (random.randint(0, 5), random.randint(0, 5))
     print(third)
     TrueFalse = ErrorPosition(third, computer_ban)
-    DeckRes = ShipTypes(coordinates_of_deck, third)
-    TrueFalse = DeckRes.Deck()
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, third)
+        TrueFalse = DeckRes.Deck()
 computer.append(third)
 computer_ban.append(third)
 ban.append(third)
@@ -367,8 +351,11 @@ while TrueFalse == True:
     third = ((int(input("Введите первую координату второй палубы трехпалубника: "))-1),
              (int(input("Введите вторую координату второй палубы трехпалубника: "))-1))
     TrueFalse = ErrorPosition(third, player_ban)
-    DeckRes = ShipTypes(coordinates_of_deck, third)
-    TrueFalse = DeckRes.Deck()
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, third)
+        TrueFalse = DeckRes.Deck()
 player.append(third)
 player_ban.append(third)
 ban.append(third)
@@ -383,8 +370,11 @@ while TrueFalse == True:
     third = ((int(input("Введите первую координату третьей палубы трехпалубника: "))-1),
              (int(input("Введите вторую координату третьей палубы трехпалубника: "))-1))
     TrueFalse = ErrorPosition(third, player_ban)
-    DeckRes = ShipTypes(coordinates_of_deck, third)
-    TrueFalse = DeckRes.Deck()
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, third)
+        TrueFalse = DeckRes.Deck()
 player.append(third)
 player_ban.append(third)
 ban.append(third)
@@ -417,8 +407,11 @@ while TrueFalse == True:
     two = ((int(input("Введите первую координату второй палубы первого двупалубника: "))-1),
            (int(input("Введите вторую координату второй палубы первого двупалубника: "))-1),)
     TrueFalse = ErrorPosition(two, player_ban)
-    DeckRes = ShipTypes(coordinates_of_deck, two)
-    TrueFalse = DeckRes.Deck()
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, two)
+        TrueFalse = DeckRes.Deck()
 player.append(two)
 player_ban.append(two)
 ban.append(two)
@@ -450,8 +443,11 @@ while TrueFalse == True:
     two = ((int(input("Введите первую координату второй палубы второго двупалубника: ")) - 1),
            (int(input("Введите вторую координату второй палубы второго двупалубника: ")) - 1),)
     TrueFalse = ErrorPosition(two, player_ban)
-    DeckRes = ShipTypes(coordinates_of_deck, two)
-    TrueFalse = DeckRes.Deck()
+    if TrueFalse == True:
+        continue
+    else:
+        DeckRes = ShipTypes(coordinates_of_deck, two)
+        TrueFalse = DeckRes.Deck()
 player.append(two)
 player_ban.append(two)
 ban.append(two)
