@@ -5,7 +5,7 @@ computer_ban = []
 
 def ErrorPosition(ship, pl_ban):
     if ship in pl_ban:
-        print("Данная координата занята или вы ставите впритык к другому окраблю, попробуйте снова")
+        print("Данная координата занята или вы ставите впритык к другому кораблю, попробуйте снова")
         return True
     elif ship[0] < 0 or ship[0] > 5 or ship[1] < 0 or ship[1] > 5:
         print("Вы вышли за пределы поля боя, попробуйте снова")
@@ -47,6 +47,7 @@ class Ship:
         self.player = player
         self.computer = computer
     def ShowTablePlayer(self):
+        print("Поле игрока")
         for i in range(6):
             for j in range(6):
                 if (i, j) in self.player:
@@ -55,18 +56,62 @@ class Ship:
                     print("| O ", end='')
             print("|")
 
+class ShipTypes:
+    def __init__(self, coordinates, new_coordinates):
+        self.coordinates = coordinates
+        self.new_coordinates = new_coordinates
+    def Deck(self):
+        if len(self.coordinates) == 1:
+            if (self.coordinates[0][0]+1, self.coordinates[0][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0]-1, self.coordinates[0][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0], self.coordinates[0][1]-1) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0], self.coordinates[0][1]+1) == self.new_coordinates:
+                return False
+            else:
+                print("Корабль разделить невозможно")
+                return True
+        elif len(self.coordinates) == 2:
+            if (self.coordinates[0][0] + 1, self.coordinates[0][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0]-1, self.coordinates[0][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0], self.coordinates[0][1]-1) == self.new_coordinates:
+                return False
+            elif (self.coordinates[0][0], self.coordinates[0][1]+1) == self.new_coordinates:
+                return False
+            elif (self.coordinates[1][0] + 1, self.coordinates[1][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[1][0]-1, self.coordinates[1][1]) == self.new_coordinates:
+                return False
+            elif (self.coordinates[1][0], self.coordinates[1][1]-1) == self.new_coordinates:
+                return False
+            elif (self.coordinates[1][0], self.coordinates[1][1]+1) == self.new_coordinates:
+                return False
+            else:
+                print("Корабль разделить невозможно")
+                return True
+
+
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
 
 
 ban = []
-third = ((int(input("Введите первую координату первой палубы трехпалубника: "))-1),
+TrueFalse = True
+while TrueFalse == True:
+    third = ((int(input("Введите первую координату первой палубы трехпалубника: "))-1),
         (int(input("Введите вторую координату первой палубы трехпалубника: "))-1))
+    TrueFalse = ErrorPosition(third, player_ban)
 player.append(third)
 player_ban.append(third)
 ban.append(third)
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
+coordinates_of_deck = [third]
+
 
 # third вместо second_third чтобы не забивать память (перезапись переменной)
 TrueFalse = True
@@ -74,11 +119,14 @@ while TrueFalse == True:
     third = ((int(input("Введите первую координату второй палубы трехпалубника: "))-1),
              (int(input("Введите вторую координату второй палубы трехпалубника: "))-1))
     TrueFalse = ErrorPosition(third, player_ban)
+    DeckRes = ShipTypes(coordinates_of_deck, third)
+    TrueFalse = DeckRes.Deck()
 player.append(third)
 player_ban.append(third)
 ban.append(third)
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
+coordinates_of_deck.append(third)
 
 # third вместо second_third чтобы не забивать память (перезапись переменной)
 TrueFalse = True
@@ -86,6 +134,8 @@ while TrueFalse == True:
     third = ((int(input("Введите первую координату третьей палубы трехпалубника: "))-1),
              (int(input("Введите вторую координату третьей палубы трехпалубника: "))-1))
     TrueFalse = ErrorPosition(third, player_ban)
+    DeckRes = ShipTypes(coordinates_of_deck, third)
+    TrueFalse = DeckRes.Deck()
 player.append(third)
 player_ban.append(third)
 ban.append(third)
@@ -93,6 +143,7 @@ SP = Ship(player, computer)
 SP.ShowTablePlayer()
 BorderAndCorner(ban)
 print("Нельзя ставить: ", player_ban)
+
 
 ban = []
 TrueFalse = True
@@ -105,6 +156,9 @@ player_ban.append(two)
 ban.append(two)
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
+coordinates_of_deck = [two]
+
+
 
 # two вместо second_two чтобы не забивать память (перезапись переменной)
 TrueFalse = True
@@ -112,6 +166,8 @@ while TrueFalse == True:
     two = ((int(input("Введите первую координату второй палубы первого двупалубника: "))-1),
            (int(input("Введите вторую координату второй палубы первого двупалубника: "))-1),)
     TrueFalse = ErrorPosition(two, player_ban)
+    DeckRes = ShipTypes(coordinates_of_deck, two)
+    TrueFalse = DeckRes.Deck()
 player.append(two)
 player_ban.append(two)
 ban.append(two)
@@ -133,6 +189,7 @@ player_ban.append(two)
 ban.append(two)
 SP = Ship(player, computer)
 SP.ShowTablePlayer()
+coordinates_of_deck = [two]
 
 # two вместо second_two чтобы не забивать память (перезапись переменной)
 TrueFalse = True
@@ -140,6 +197,8 @@ while TrueFalse == True:
     two = ((int(input("Введите первую координату второй палубы второго двупалубника: ")) - 1),
            (int(input("Введите вторую координату второй палубы второго двупалубника: ")) - 1),)
     TrueFalse = ErrorPosition(two, player_ban)
+    DeckRes = ShipTypes(coordinates_of_deck, two)
+    TrueFalse = DeckRes.Deck()
 player.append(two)
 player_ban.append(two)
 ban.append(two)
@@ -207,7 +266,7 @@ SP.ShowTablePlayer()
 BorderAndCorner(ban)
 print("Нельзя ставить: ", player_ban)
 
-
-
 print(player)
+
+
 
