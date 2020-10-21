@@ -1,10 +1,21 @@
 import random
 
 player = []
+player_ones = []
+player_twoes1 = []
+player_twoes2 = []
+player_threes = []
 computer = []
+computer_ones = []
+computer_twoes1 = []
+computer_twoes2 = []
+computer_threes = []
 player_ban = []
 computer_ban = []
-
+player_shots_yes = []
+player_shots_no = []
+computer_shots_yes = []
+computer_shots_no = []
 
 def TryExc(first, second):
     try:
@@ -91,6 +102,35 @@ class Ship:
             print("|")
 
 
+class Battle:
+    def __init__(self, player_shots_yes, player_shots_no, computer_shots_yes, computerr_shots_no):
+        self.player_shots_yes = player_shots_yes
+        self.player_shots_no = player_shots_no
+        self.computer_shots_yes = computer_shots_yes
+        self.computerr_shots_no = computerr_shots_no
+    def ShowTablePlayer(self):
+        for i in range(6):
+            for j in range(6):
+                if (i, j) in self.player_shots_yes:
+                    print("| T ", end='')
+                elif (i, j) in self.player_shots_no:
+                    print("| X ", end='')
+                else:
+                    print("| O ", end='')
+            print("|")
+
+    def ShowTableComputer(self):
+        for i in range(6):
+            for j in range(6):
+                if (i, j) in self.computer_shots_yes:
+                    print("| T ", end='')
+                elif (i, j) in self.computer_shots_no:
+                    print("| X ", end='')
+                else:
+                    print("| O ", end='')
+            print("|")
+
+
 class ShipTypes:
     def __init__(self, coordinates, new_coordinates):
         self.coordinates = coordinates
@@ -148,6 +188,7 @@ while TrueFalse == True:
     # print(third)
     TrueFalse = ErrorPosition(third, computer_ban)
 computer.append(third)
+computer_threes.append(third)
 computer_ban.append(third)
 ban.append(third)
 # print("Поле компьютера")
@@ -168,6 +209,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, third)
         TrueFalse = DeckRes.Deck()
 computer.append(third)
+computer_threes.append(third)
 computer_ban.append(third)
 ban.append(third)
 print("Компьютер поставил вторую палубу трехпалубного")
@@ -187,6 +229,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, third)
         TrueFalse = DeckRes.Deck()
 computer.append(third)
+computer_threes.append(third)
 computer_ban.append(third)
 ban.append(third)
 print("Компьютер поставил третью палубу трехпалубного")
@@ -202,6 +245,7 @@ while TrueFalse == True:
     # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
 computer.append(two)
+computer_twoes1.append(two)
 computer_ban.append(two)
 ban.append(two)
 print("Компьютер поставил первую палубу первого двухпалубного")
@@ -221,6 +265,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, two)
         TrueFalse = DeckRes.Deck()
 computer.append(two)
+computer_twoes1.append(two)
 computer_ban.append(two)
 ban.append(two)
 print("Компьютер поставил вторую палубу первого двухпалубного")
@@ -237,6 +282,7 @@ while TrueFalse == True:
     # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
 computer.append(two)
+computer_twoes2.append(two)
 computer_ban.append(two)
 ban.append(two)
 print("Компьютер поставил первую палубу второго двухпалубного")
@@ -256,6 +302,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, two)
         TrueFalse = DeckRes.Deck()
 computer.append(two)
+computer_twoes2.append(two)
 computer_ban.append(two)
 ban.append(two)
 print("Компьютер поставил вторую палубу второго двухпалубного")
@@ -271,6 +318,7 @@ while TrueFalse == True:
     # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
+computer_ones.append(one)
 computer_ban.append(one)
 ban.append(one)
 print("Компьютер поставил первый однопалубный")
@@ -287,6 +335,7 @@ while TrueFalse == True:
     # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
+computer_ones.append(one)
 computer_ban.append(one)
 ban.append(one)
 print("Компьютер поставил второй однопалубный")
@@ -303,6 +352,7 @@ while TrueFalse == True:
     # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
+computer_ones.append(one)
 computer_ban.append(one)
 ban.append(one)
 print("Компьютер поставил третий однопалубный")
@@ -319,9 +369,10 @@ while TrueFalse == True:
     # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
+computer_ones.append(one)
 computer_ban.append(one)
 ban.append(one)
-print("ПКомпьютер поставил четвертый однопалубный")
+print("Компьютер поставил четвертый однопалубный")
 # SP = Ship(player, computer)
 # SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
@@ -341,6 +392,7 @@ while TrueFalse == True:
                   "Введите вторую координату первой палубы трехпалубника: ")
     TrueFalse = ErrorPosition(third, player_ban)
 player.append(third)
+player_threes.append(third)
 player_ban.append(third)
 ban.append(third)
 print("Поле игрока")
@@ -360,6 +412,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, third)
         TrueFalse = DeckRes.Deck()
 player.append(third)
+player_threes.append(third)
 player_ban.append(third)
 ban.append(third)
 print("Поле игрока")
@@ -379,6 +432,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, third)
         TrueFalse = DeckRes.Deck()
 player.append(third)
+player_threes.append(third)
 player_ban.append(third)
 ban.append(third)
 print("Поле игрока")
@@ -394,6 +448,7 @@ while TrueFalse == True:
                   "Введите вторую координату первой палубы первого двупалубника: ")
     TrueFalse = ErrorPosition(two, player_ban)
 player.append(two)
+player_twoes1.append(two)
 player_ban.append(two)
 ban.append(two)
 print("Поле игрока")
@@ -413,6 +468,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, two)
         TrueFalse = DeckRes.Deck()
 player.append(two)
+player_twoes1.append(two)
 player_ban.append(two)
 ban.append(two)
 print("Поле игрока")
@@ -429,6 +485,7 @@ while TrueFalse == True:
            "Введите вторую координату первой палубы второго двупалубника: ")
     TrueFalse = ErrorPosition(two, player_ban)
 player.append(two)
+player_twoes2.append(two)
 player_ban.append(two)
 ban.append(two)
 print("Поле игрока")
@@ -448,6 +505,7 @@ while TrueFalse == True:
         DeckRes = ShipTypes(coordinates_of_deck, two)
         TrueFalse = DeckRes.Deck()
 player.append(two)
+player_twoes2.append(two)
 player_ban.append(two)
 ban.append(two)
 print("Поле игрока")
@@ -463,6 +521,7 @@ while TrueFalse == True:
            "Введите вторую координату первого однопалубника: ")
     TrueFalse = ErrorPosition(one, player_ban)
 player.append(one)
+player_ones.append(one)
 player_ban.append(one)
 ban.append(one)
 print("Поле игрока")
@@ -479,6 +538,7 @@ while TrueFalse == True:
            "Введите вторую координату второго однопалубника: ")
     TrueFalse = ErrorPosition(one, player_ban)
 player.append(one)
+player_ones.append(one)
 player_ban.append(one)
 ban.append(one)
 print("Поле игрока")
@@ -495,6 +555,7 @@ while TrueFalse == True:
            "Введите вторую координату третьего однопалубника: ")
     TrueFalse = ErrorPosition(one, player_ban)
 player.append(one)
+player_ones.append(one)
 player_ban.append(one)
 ban.append(one)
 print("Поле игрока")
@@ -511,6 +572,7 @@ while TrueFalse == True:
            "Введите вторую координату четвертого однопалубника: ")
     TrueFalse = ErrorPosition(one, player_ban)
 player.append(one)
+player_ones.append(one)
 player_ban.append(one)
 ban.append(one)
 print("Поле игрока")
@@ -520,3 +582,128 @@ BorderAndCorner(ban, PorC=0)
 print("Нельзя ставить: ", player_ban)
 
 print(player)
+
+# while True:
+#     coin = int(input("Орел - 0, Решка - 1"))
+#     if coin == 0 or coin == 1:
+#         break
+#     else:
+#         print("Вы вышли за пределы вариантов выпадения монеты")
+
+# first_step = random.randint(0, 1)
+coin = 1
+first_step = 1
+
+threes = []
+twoes = []
+def play(coin, first_step):
+    global threes
+    global twoes
+    global player_shots_no
+    global player_shots_yes
+    global player_ones
+    global player_threes
+    global player_twoes1
+    global player_twoes2
+    global computer_shots_yes
+    global computer_shots_no
+    global computer_ones
+    global computer_twoes1
+    global computer_twoes2
+    global computer_threes
+    if len(player_shots_yes) == 11:
+        print("Игрок победил")
+        return True
+    if len(computer_shots_yes) == 11:
+        print("Компьютер победил")
+        return True
+    if coin == first_step:
+        shot = TryExc("Введите первую координату: ", "Введите вторую координату: ")
+        if shot in player_shots_yes:
+            print("Вы сюда уже стреляли и попали")
+            return play(coin, first_step)
+        elif shot in player_shots_no:
+            print("Вы сюда уже стреляли и НЕ попали либо здесь не может находиться корабль")
+            return play(coin, first_step)
+        else:
+            if shot in computer:
+                player_shots_yes.append(shot)
+                if shot in computer_ones:
+                    print("Убил")
+                    player_shots_no.append((shot[0] - 1, shot[1] - 1))
+                    player_shots_no.append((shot[0] - 1, shot[1]))
+                    player_shots_no.append((shot[0] - 1, shot[1] + 1))
+                    player_shots_no.append((shot[0], shot[1] - 1))
+                    player_shots_no.append((shot[0], shot[1] + 1))
+                    player_shots_no.append((shot[0] + 1, shot[1] - 1))
+                    player_shots_no.append((shot[0] + 1, shot[1]))
+                    player_shots_no.append((shot[0] + 1, shot[1] + 1))
+                elif shot in computer_twoes1:
+                    if len(computer_twoes1) > 1:
+                        print("Ранил")
+                        twoes.append(shot)
+                        computer_twoes1.remove(shot)
+                    else:
+                        print("Убил")
+                        twoes.append(shot)
+                        computer_twoes1.remove(shot)
+                        for paluba in twoes:
+                            if paluba not in player_shots_yes:
+                                player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
+                                player_shots_no.append((paluba[0] - 1, paluba[1]))
+                                player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
+                                player_shots_no.append((paluba[0], paluba[1] - 1))
+                                player_shots_no.append((paluba[0], paluba[1] + 1))
+                                player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
+                                player_shots_no.append((paluba[0] + 1, paluba[1]))
+                                player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                        twoes = []
+                elif shot in computer_twoes2:
+                    if len(computer_twoes2) > 1:
+                        print("Ранил")
+                        computer_twoes2.remove(shot)
+                    else:
+                        print("Убил")
+                        computer_twoes2.remove(shot)
+                        for paluba in twoes:
+                            player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
+                            player_shots_no.append((paluba[0] - 1, paluba[1]))
+                            player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
+                            player_shots_no.append((paluba[0], paluba[1] - 1))
+                            player_shots_no.append((paluba[0], paluba[1] + 1))
+                            player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
+                            player_shots_no.append((paluba[0] + 1, paluba[1]))
+                            player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                        twoes = []
+                elif shot in computer_threes:
+                    if len(computer_threes) > 1:
+                        print("Ранил")
+                        computer_threes.remove(shot)
+                    else:
+                        print("Убил")
+                        computer_threes.remove(shot)
+                        for paluba in threes:
+                            player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
+                            player_shots_no.append((paluba[0] - 1, paluba[1]))
+                            player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
+                            player_shots_no.append((paluba[0], paluba[1] - 1))
+                            player_shots_no.append((paluba[0], paluba[1] + 1))
+                            player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
+                            player_shots_no.append((paluba[0] + 1, paluba[1]))
+                            player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                        threes = []
+                return play(coin, first_step)
+            else:
+                print("Мимо")
+                player_shots_no.append(shot)
+                if coin == 1:
+                    coin = 0
+                else:
+                    coin = 1
+                return play(coin, first_step)
+
+
+
+
+
+play(coin, first_step)
