@@ -145,21 +145,22 @@ ban = []
 TrueFalse = True
 while TrueFalse == True:
     third = (random.randint(0, 5), random.randint(0, 5))
-    print(third)
+    # print(third)
     TrueFalse = ErrorPosition(third, computer_ban)
 computer.append(third)
 computer_ban.append(third)
 ban.append(third)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+# print("Поле компьютера")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
+print("Компьютер поставил первую палубу трепалубного")
 coordinates_of_deck = [third]
 
 # third вместо second_third чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     third = (random.randint(0, 5), random.randint(0, 5))
-    print(third)
+    # print(third)
     TrueFalse = ErrorPosition(third, computer_ban)
     if TrueFalse == True:
         continue
@@ -169,16 +170,16 @@ while TrueFalse == True:
 computer.append(third)
 computer_ban.append(third)
 ban.append(third)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил вторую палубу трехпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 coordinates_of_deck.append(third)
 
 # third вместо second_third чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     third = (random.randint(0, 5), random.randint(0, 5))
-    print(third)
+    # print(third)
     TrueFalse = ErrorPosition(third, computer_ban)
     if TrueFalse == True:
         continue
@@ -188,31 +189,31 @@ while TrueFalse == True:
 computer.append(third)
 computer_ban.append(third)
 ban.append(third)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил третью палубу трехпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
 
 ban = []
 TrueFalse = True
 while TrueFalse == True:
     two = (random.randint(0, 5), random.randint(0, 5))
-    print(two)
+    # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
 computer.append(two)
 computer_ban.append(two)
 ban.append(two)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил первую палубу первого двухпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 coordinates_of_deck = [two]
 
 # two вместо second_two чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     two = (random.randint(0, 5), random.randint(0, 5))
-    print(two)
+    # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
     if TrueFalse == True:
         continue
@@ -222,32 +223,32 @@ while TrueFalse == True:
 computer.append(two)
 computer_ban.append(two)
 ban.append(two)
-print("Поле игрока")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил вторую палубу первого двухпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
 
 ban = []
 # two вместо second_two чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     two = (random.randint(0, 5), random.randint(0, 5))
-    print(two)
+    # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
 computer.append(two)
 computer_ban.append(two)
 ban.append(two)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил первую палубу второго двухпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 coordinates_of_deck = [two]
 
 # two вместо second_two чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     two = (random.randint(0, 5), random.randint(0, 5))
-    print(two)
+    # print(two)
     TrueFalse = ErrorPosition(two, computer_ban)
     if TrueFalse == True:
         continue
@@ -257,74 +258,74 @@ while TrueFalse == True:
 computer.append(two)
 computer_ban.append(two)
 ban.append(two)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил вторую палубу второго двухпалубного")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
 
 ban = []
 TrueFalse = True
 while TrueFalse == True:
     one = (random.randint(0, 5), random.randint(0, 5))
-    print(one)
+    # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
 computer_ban.append(one)
 ban.append(one)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил первый однопалубный")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
-
-ban = []
-# one вместо second_one чтобы не забивать память (перезапись переменной)
-TrueFalse = True
-while TrueFalse == True:
-    one = (random.randint(0, 5), random.randint(0, 5))
-    print(one)
-    TrueFalse = ErrorPosition(one, computer_ban)
-computer.append(one)
-computer_ban.append(one)
-ban.append(one)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
-BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
 
 ban = []
 # one вместо second_one чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     one = (random.randint(0, 5), random.randint(0, 5))
-    print(one)
+    # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
 computer_ban.append(one)
 ban.append(one)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил второй однопалубный")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
 
 ban = []
 # one вместо second_one чтобы не забивать память (перезапись переменной)
 TrueFalse = True
 while TrueFalse == True:
     one = (random.randint(0, 5), random.randint(0, 5))
-    print(one)
+    # print(one)
     TrueFalse = ErrorPosition(one, computer_ban)
 computer.append(one)
 computer_ban.append(one)
 ban.append(one)
-print("Поле компьютера")
-SP = Ship(player, computer)
-SP.ShowTableComputer()
+print("Компьютер поставил третий однопалубный")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
 BorderAndCorner(ban, PorC=1)
-print("Нельзя ставить: ", computer_ban)
+# print("Нельзя ставить: ", computer_ban)
+
+ban = []
+# one вместо second_one чтобы не забивать память (перезапись переменной)
+TrueFalse = True
+while TrueFalse == True:
+    one = (random.randint(0, 5), random.randint(0, 5))
+    # print(one)
+    TrueFalse = ErrorPosition(one, computer_ban)
+computer.append(one)
+computer_ban.append(one)
+ban.append(one)
+print("ПКомпьютер поставил четвертый однопалубный")
+# SP = Ship(player, computer)
+# SP.ShowTableComputer()
+BorderAndCorner(ban, PorC=1)
+# print("Нельзя ставить: ", computer_ban)
 
 # УСТАНОВКА КОРАБЛЕЙ ИГРОКА
 
