@@ -748,7 +748,7 @@ def play(coin, first_step):
                         for paluba in twoes:
                             if paluba not in computer_shots_yes:
                                 addX(paluba, computer_shots_no)
-                        twoes = []
+                        PCtwoes = []
                 elif shot in player_twoes2:
                     if len(player_twoes2) > 1:
                         print(shot[0]+1, shot[1]+1)
@@ -762,7 +762,7 @@ def play(coin, first_step):
                         player_twoes2.remove(shot)
                         for paluba in twoes:
                             addX(paluba, computer_shots_no)
-                        twoes = []
+                        PCtwoes = []
                 elif shot in player_threes:
                     if len(player_threes) > 1:
                         print(shot[0]+1, shot[1]+1)
@@ -776,7 +776,7 @@ def play(coin, first_step):
                         player_threes.remove(shot)
                         for paluba in threes:
                             addX(paluba, computer_shots_no)
-                        threes = []
+                        PCthrees = []
                 print("Поле игрока по которому стреляет компьютер")
                 B = Battle(computer_shots_yes, computer_shots_no)
                 B.ShowTable()
