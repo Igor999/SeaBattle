@@ -603,7 +603,8 @@ first_step = random.randint(0, 1)
 
 threes = []
 twoes = []
-
+PCthrees = []
+PCtwoes = []
 def addX(shot, noes):
     noes.append((shot[0] - 1, shot[1] - 1))
     noes.append((shot[0] - 1, shot[1]))
@@ -618,6 +619,8 @@ def addX(shot, noes):
 def play(coin, first_step):
     global threes
     global twoes
+    global PCthrees
+    global PCtwoes
     global player_shots_no
     global player_shots_yes
     global player_ones
@@ -735,12 +738,12 @@ def play(coin, first_step):
                     if len(player_twoes1) > 1:
                         print(shot[0]+1, shot[1]+1)
                         print("Ранил")
-                        twoes.append(shot)
+                        PCtwoes.append(shot)
                         player_twoes1.remove(shot)
                     else:
                         print(shot[0]+1, shot[1]+1)
                         print("Убил")
-                        twoes.append(shot)
+                        PCtwoes.append(shot)
                         player_twoes1.remove(shot)
                         for paluba in twoes:
                             if paluba not in computer_shots_yes:
@@ -750,10 +753,12 @@ def play(coin, first_step):
                     if len(player_twoes2) > 1:
                         print(shot[0]+1, shot[1]+1)
                         print("Ранил")
+                        PCtwoes.append(shot)
                         player_twoes2.remove(shot)
                     else:
                         print(shot[0]+1, shot[1]+1)
                         print("Убил")
+                        PCtwoes.append(shot)
                         player_twoes2.remove(shot)
                         for paluba in twoes:
                             addX(paluba, computer_shots_no)
@@ -762,10 +767,12 @@ def play(coin, first_step):
                     if len(player_threes) > 1:
                         print(shot[0]+1, shot[1]+1)
                         print("Ранил")
+                        PCthrees.append(shot)
                         player_threes.remove(shot)
                     else:
                         print(shot[0]+1, shot[1]+1)
                         print("Убил")
+                        PCthrees.append(shot)
                         player_threes.remove(shot)
                         for paluba in threes:
                             addX(paluba, computer_shots_no)
