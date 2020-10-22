@@ -103,32 +103,39 @@ class Ship:
 
 
 class Battle:
-    def __init__(self, player_shots_yes, player_shots_no, computer_shots_yes, computerr_shots_no):
-        self.player_shots_yes = player_shots_yes
-        self.player_shots_no = player_shots_no
-        self.computer_shots_yes = computer_shots_yes
-        self.computerr_shots_no = computerr_shots_no
-    def ShowTablePlayer(self):
+    # def __init__(self, player_shots_yes, player_shots_no, computer_shots_yes, computer_shots_no):
+    #     self.player_shots_yes = player_shots_yes
+    #     self.player_shots_no = player_shots_no
+    #     self.computer_shots_yes = computer_shots_yes
+    #     self.computerr_shots_no = computer_shots_no
+
+    def __init__(self, shots_yes, shots_no):
+        self.shots_yes = shots_yes
+        self.shots_no = shots_no
+
+
+
+    def ShowTable(self):
         for i in range(6):
             for j in range(6):
-                if (i, j) in self.player_shots_yes:
+                if (i, j) in self.shots_yes:
                     print("| T ", end='')
-                elif (i, j) in self.player_shots_no:
+                elif (i, j) in self.shots_no:
                     print("| X ", end='')
                 else:
                     print("| O ", end='')
             print("|")
 
-    def ShowTableComputer(self):
-        for i in range(6):
-            for j in range(6):
-                if (i, j) in self.computer_shots_yes:
-                    print("| T ", end='')
-                elif (i, j) in self.computer_shots_no:
-                    print("| X ", end='')
-                else:
-                    print("| O ", end='')
-            print("|")
+    # def ShowTableComputer(self):
+    #     for i in range(6):
+    #         for j in range(6):
+    #             if (i, j) in self.computer_shots_yes:
+    #                 print("| T ", end='')
+    #             elif (i, j) in self.computer_shots_no:
+    #                 print("| X ", end='')
+    #             else:
+    #                 print("| O ", end='')
+    #         print("|")
 
 
 class ShipTypes:
@@ -583,19 +590,31 @@ print("Нельзя ставить: ", player_ban)
 
 print(player)
 
-# while True:
-#     coin = int(input("Орел - 0, Решка - 1"))
-#     if coin == 0 or coin == 1:
-#         break
-#     else:
-#         print("Вы вышли за пределы вариантов выпадения монеты")
+while True:
+    coin = int(input("Орел - 0, Решка - 1"))
+    if coin == 0 or coin == 1:
+        break
+    else:
+        print("Вы вышли за пределы вариантов выпадения монеты")
 
-# first_step = random.randint(0, 1)
-coin = 1
-first_step = 1
+first_step = random.randint(0, 1)
+# coin = 1
+# first_step = 1
 
 threes = []
 twoes = []
+
+def addX(shot, noes):
+    noes.append((shot[0] - 1, shot[1] - 1))
+    noes.append((shot[0] - 1, shot[1]))
+    noes.append((shot[0] - 1, shot[1] + 1))
+    noes.append((shot[0], shot[1] - 1))
+    noes.append((shot[0], shot[1] + 1))
+    noes.append((shot[0] + 1, shot[1] - 1))
+    noes.append((shot[0] + 1, shot[1]))
+    noes.append((shot[0] + 1, shot[1] + 1))
+    return noes
+
 def play(coin, first_step):
     global threes
     global twoes
@@ -617,7 +636,13 @@ def play(coin, first_step):
     if len(computer_shots_yes) == 11:
         print("Компьютер победил")
         return True
+
+    # Ход игрока
+
     if coin == first_step:
+        print("Поле компьютера по которому стреляет игрок")
+        B = Battle(player_shots_yes, player_shots_no)
+        B.ShowTable()
         shot = TryExc("Введите первую координату: ", "Введите вторую координату: ")
         if shot in player_shots_yes:
             print("Вы сюда уже стреляли и попали")
@@ -630,14 +655,7 @@ def play(coin, first_step):
                 player_shots_yes.append(shot)
                 if shot in computer_ones:
                     print("Убил")
-                    player_shots_no.append((shot[0] - 1, shot[1] - 1))
-                    player_shots_no.append((shot[0] - 1, shot[1]))
-                    player_shots_no.append((shot[0] - 1, shot[1] + 1))
-                    player_shots_no.append((shot[0], shot[1] - 1))
-                    player_shots_no.append((shot[0], shot[1] + 1))
-                    player_shots_no.append((shot[0] + 1, shot[1] - 1))
-                    player_shots_no.append((shot[0] + 1, shot[1]))
-                    player_shots_no.append((shot[0] + 1, shot[1] + 1))
+                    addX(shot, player_shots_no)
                 elif shot in computer_twoes1:
                     if len(computer_twoes1) > 1:
                         print("Ранил")
@@ -649,49 +667,35 @@ def play(coin, first_step):
                         computer_twoes1.remove(shot)
                         for paluba in twoes:
                             if paluba not in player_shots_yes:
-                                player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
-                                player_shots_no.append((paluba[0] - 1, paluba[1]))
-                                player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
-                                player_shots_no.append((paluba[0], paluba[1] - 1))
-                                player_shots_no.append((paluba[0], paluba[1] + 1))
-                                player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
-                                player_shots_no.append((paluba[0] + 1, paluba[1]))
-                                player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                                addX(paluba, player_shots_no)
                         twoes = []
                 elif shot in computer_twoes2:
                     if len(computer_twoes2) > 1:
                         print("Ранил")
+                        twoes.append(shot)
                         computer_twoes2.remove(shot)
                     else:
                         print("Убил")
+                        twoes.append(shot)
                         computer_twoes2.remove(shot)
                         for paluba in twoes:
-                            player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
-                            player_shots_no.append((paluba[0] - 1, paluba[1]))
-                            player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
-                            player_shots_no.append((paluba[0], paluba[1] - 1))
-                            player_shots_no.append((paluba[0], paluba[1] + 1))
-                            player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
-                            player_shots_no.append((paluba[0] + 1, paluba[1]))
-                            player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                            addX(paluba, player_shots_no)
                         twoes = []
                 elif shot in computer_threes:
                     if len(computer_threes) > 1:
                         print("Ранил")
+                        threes.append(shot)
                         computer_threes.remove(shot)
                     else:
                         print("Убил")
+                        threes.append(shot)
                         computer_threes.remove(shot)
                         for paluba in threes:
-                            player_shots_no.append((paluba[0] - 1, paluba[1] - 1))
-                            player_shots_no.append((paluba[0] - 1, paluba[1]))
-                            player_shots_no.append((paluba[0] - 1, paluba[1] + 1))
-                            player_shots_no.append((paluba[0], paluba[1] - 1))
-                            player_shots_no.append((paluba[0], paluba[1] + 1))
-                            player_shots_no.append((paluba[0] + 1, paluba[1] - 1))
-                            player_shots_no.append((paluba[0] + 1, paluba[1]))
-                            player_shots_no.append((paluba[0] + 1, paluba[1] + 1))
+                            addX(paluba, player_shots_no)
                         threes = []
+                print("Поле компьютера по которому стреляет игрок")
+                B = Battle(player_shots_yes, player_shots_no)
+                B.ShowTable()
                 return play(coin, first_step)
             else:
                 print("Мимо")
@@ -700,6 +704,87 @@ def play(coin, first_step):
                     coin = 0
                 else:
                     coin = 1
+                print("Поле компьютера по которому стреляет игрок")
+                B = Battle(player_shots_yes, player_shots_no)
+                B.ShowTable()
+                return play(coin, first_step)
+
+    #Ход компьютера
+
+    else:
+        print("Поле игрока по которому стреляет компьютер")
+        B = Battle(computer_shots_yes, computer_shots_no)
+        B.ShowTable()
+        shot = (random.randint(0, 5), random.randint(0, 5))
+        if shot in computer_shots_yes:
+            print(shot[0]+1, shot[1]+1)
+            print("Вы сюда уже стреляли и попали")
+            return play(coin, first_step)
+        elif shot in computer_shots_no:
+            print(shot[0]+1, shot[1]+1)
+            print("Вы сюда уже стреляли и НЕ попали либо здесь не может находиться корабль")
+            return play(coin, first_step)
+        else:
+            if shot in computer:
+                computer_shots_yes.append(shot)
+                if shot in player_ones:
+                    print(shot[0]+1, shot[1]+1)
+                    print("Убил")
+                    addX(shot, computer_shots_no)
+                elif shot in player_twoes1:
+                    if len(player_twoes1) > 1:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Ранил")
+                        twoes.append(shot)
+                        player_twoes1.remove(shot)
+                    else:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Убил")
+                        twoes.append(shot)
+                        player_twoes1.remove(shot)
+                        for paluba in twoes:
+                            if paluba not in computer_shots_yes:
+                                addX(paluba, computer_shots_no)
+                        twoes = []
+                elif shot in player_twoes2:
+                    if len(player_twoes2) > 1:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Ранил")
+                        player_twoes2.remove(shot)
+                    else:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Убил")
+                        player_twoes2.remove(shot)
+                        for paluba in twoes:
+                            addX(paluba, computer_shots_no)
+                        twoes = []
+                elif shot in player_threes:
+                    if len(player_threes) > 1:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Ранил")
+                        player_threes.remove(shot)
+                    else:
+                        print(shot[0]+1, shot[1]+1)
+                        print("Убил")
+                        player_threes.remove(shot)
+                        for paluba in threes:
+                            addX(paluba, computer_shots_no)
+                        threes = []
+                print("Поле игрока по которому стреляет компьютер")
+                B = Battle(computer_shots_yes, computer_shots_no)
+                B.ShowTable()
+                return play(coin, first_step)
+            else:
+                print(shot[0]+1, shot[1]+1)
+                print("Мимо")
+                computer_shots_no.append(shot)
+                if coin == 1:
+                    coin = 0
+                else:
+                    coin = 1
+                print("Поле игрока по которому стреляет компьютер")
+                B = Battle(computer_shots_yes, computer_shots_no)
+                B.ShowTable()
                 return play(coin, first_step)
 
 
